@@ -1,0 +1,49 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: WebDriverIO Test
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser to run tests on'
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+
+jobs:
+  test:
+    name: Run tests on ${{ github.event.inputs.browser }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install browser (Chrome or Firefox)
+        run: |
+          if [ "${{ github.event.inputs.browser }}" = "chrome" ]; then
+            sudo apt-get update
+            sudo apt-get install -y google-chrome-stable || \
+              sudo apt-get install -y wget gnupg2 && \
+              wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+              echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list && \
+              sudo apt-get update && sudo apt-get install -y google-chrome-stable
+          elif [ "${{ github.event.inputs.browser }}" = "firefox" ]; then
+            sudo apt-get update
+            sudo apt-get install -y firefox
+          fi
+
+      - name: Run WebDriverIO tests using NPM script
+        run: npm run ${{ github.event.inputs.browser }}
