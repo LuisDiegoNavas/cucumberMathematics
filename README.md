@@ -29,7 +29,7 @@ npm install
 3. ▶️ Run the Tests
 ```bash
 npm run chrome
-npm run fireFox // only on Gitlab
+npm run fireFox // only on GitHub Actions
 ```
 ## 📁 Project Structure
 
