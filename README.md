@@ -28,7 +28,8 @@ npm install
 
 3. ▶️ Run the Tests
 ```bash
-npm run wdio
+npm run chrome
+npm run fireFox // only on Gitlab
 ```
 ## 📁 Project Structure
 
