@@ -18,8 +18,8 @@ It showcases how to write BDD test scenarios using Gherkin syntax and automate t
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/your-user/your-repo.git
-cd your-repo
+git clone https://github.com/LuisDiegoNavas/cucumberMathematics
+cd main
 ```
 2. Install dependencies:
 ```bash
@@ -46,4 +46,4 @@ It showcases how to write BDD test scenarios using Gherkin syntax and automate t
 └── package.json
 ```
 
-MIT License. Use freely and make your own salads 🍅🥕🥒
+MIT License.
